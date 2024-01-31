@@ -16,7 +16,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -38,10 +37,13 @@ fun ShortUserCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, top = 4.dp)
-            .alpha(0.9f)
+            .padding(start = 16.dp,
+                end = 16.dp,
+                top = 4.dp,
+                bottom = 3.dp)
             .clip(AbsoluteCutCornerShape(bottomRight = 10.dp)),
-        backgroundColor = Color(0xFFE5D8F3),
+        backgroundColor = Color.LightGray.copy(alpha = 0.7f),
+        elevation = 0.dp,
         onClick = {
             onClickUser()
             viewModel.selectedUser.value = user

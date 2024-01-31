@@ -3,7 +3,9 @@ package com.danil.testtask.screens
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -13,7 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.material.*
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -94,6 +98,11 @@ fun UserList(
             )
         }
     ){
+        Image(painter = painterResource(id = R.drawable.background_shift),
+            contentDescription = "background",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+                .alpha(0.15f))
         LazyColumn(
             modifier = Modifier
                 .fillMaxHeight(1f)

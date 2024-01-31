@@ -38,12 +38,11 @@ class UsersViewModel @Inject constructor(
     val jsonErrorCheck = mutableStateOf(false)
     val selectedUser: MutableState<FullUserModel?> = mutableStateOf(null)
 
-
     fun insertUsers(
         item:MutableState<List<FullUserModel>>,
     ) = viewModelScope.launch {
-            getUsers(item)
-            appDb.dao.insertItem(item.value)
+        getUsers(item)
+        appDb.dao.insertItem(item.value)
     }
 
     fun deleteUsers(list: List<FullUserModel>) = viewModelScope.launch{
@@ -59,7 +58,7 @@ class UsersViewModel @Inject constructor(
             Request.Method.GET,
             url,
             {
-                response ->
+                    response ->
                 list.value = parsingUsersInfo(response)
                 Log.d("Response", response)
                 Log.d("ShortUsers", list.value.toString())
@@ -184,7 +183,7 @@ class UsersViewModel @Inject constructor(
                 }
             } catch (e: JSONException){
                 jsonErrorCheck.value = true
-                return users.value
+                return fullUsers
             }
             jsonErrorCheck.value = false
             return fullUsers

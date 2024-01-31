@@ -23,8 +23,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.danil.testtask.AppContext
+import com.danil.testtask.ui.theme.LightBlue
 import com.danil.testtask.viewmodel.UsersViewModel
 
 
@@ -46,9 +45,9 @@ fun User(
     viewModel: UsersViewModel
 ){
     val scaffoldState = rememberScaffoldState()
-    val selectedUser = remember{
-        mutableStateOf(viewModel.selectedUser.value)
-    }
+    val selectedUser = viewModel.selectedUser
+
+
     Scaffold (
         scaffoldState = scaffoldState,
         topBar = {
@@ -69,7 +68,8 @@ fun User(
                                 .AutoMirrored
                                 .Rounded
                                 .ArrowBack,
-                            contentDescription = "Close")
+                            contentDescription = "Close"
+                        )
                     }
                 }
 
@@ -100,109 +100,259 @@ fun User(
             )
             Divider(
                 color = Color.LightGray,
-                thickness = 0.3.dp,
-                modifier = Modifier.padding(top = 10.dp))
+                thickness = 1.dp,
+                modifier = Modifier.padding(top = 15.dp)
+            )
+            Box(modifier = Modifier.padding(end = 15.dp)) {
 
-            Row(modifier = Modifier.fillMaxWidth()){
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth(1f)
                         .padding(start = 15.dp, top = 15.dp)
-                ){
-                    Column {
-                        Text(text ="Personal information", fontSize = 20.sp)
-                        Text (text = "name: "+ selectedUser.value?.title +
-                                selectedUser.value?.firstName +
-                                selectedUser.value?.lastName,
+                ) {
+                    Text(
+                        text = "Personal information",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(bottom = 6.dp)
+                    )
+
+
+                    Row {
+                        Text(
+                            text = "title: ",
                             fontSize = 18.sp
                         )
-                        Text (text ="gender: "+  selectedUser.value?.gender,
-                            fontSize = 18.sp)
-                        Text (text ="age: " + selectedUser.value?.age+" y.o.",
-                            fontSize = 18.sp)
-                        Text(text ="date of birthday " +  selectedUser.value?.birthday,
-                            fontSize = 18.sp)
-                        Text (text ="nationality: " + selectedUser.value?.nat,
-                            fontSize = 18.sp)
+                        Text(
+                            text = selectedUser.value?.title + ".",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "firstname: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.firstName}",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "lastname: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.lastName}",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "gender: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.gender}",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "age: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.age}",
+                            fontSize = 18.sp
+                        )
+                    }
 
-                        Text(text ="Contacts", fontSize = 20.sp)
-                        Text (text = "tel.: "+ selectedUser.value?.phoneNumber,
+                    Row {
+                        Text(
+                            text = "birth.: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.birthday}",
+                            fontSize = 18.sp
+                        )
+                    }
+
+                    Row {
+                        Text(
+                            text = "nationality: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.nat}",
+                            fontSize = 18.sp
+                        )
+                    }
+
+                    Divider(
+                        color = Color.LightGray,
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(top = 5.dp)
+                    )
+                    Text(
+                        text = "Contacts",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 6.dp)
+                    )
+                    Row {
+                        Text(
+                            text = "tel.: ",
+                            fontSize = 18.sp
+                        )
+                        Text(text = "${selectedUser.value?.phoneNumber}",
                             fontSize = 18.sp,
+                            color = LightBlue,
                             modifier = Modifier.clickable {
-                                selectedUser.value?.phoneNumber?.let {
-                                    phoneNumber ->
+                                selectedUser.value?.phoneNumber?.let { phoneNumber ->
                                     viewModel.callPhone(
                                         phoneNumber
                                     )
                                 }
                             }
                         )
-                        Text (text ="cell.: "+  selectedUser.value?.cell,
+                    }
+
+                    Row {
+                        Text(
+                            text = "cell.: ",
+                            fontSize = 18.sp
+                        )
+                        Text(text = "${selectedUser.value?.cell}",
                             fontSize = 18.sp,
+                            color = LightBlue,
                             modifier = Modifier.clickable {
-                                selectedUser.value?.cell?.let {
-                                        phoneNumber ->
+                                selectedUser.value?.cell?.let { phoneNumber ->
                                     viewModel.callPhone(
                                         phoneNumber
                                     )
                                 }
-                            })
-                        Text (text ="email: " + selectedUser.value?.email,
+                            }
+                        )
+                    }
+
+                    Row {
+                        Text(
+                            text = "email: ",
+                            fontSize = 18.sp
+                        )
+                        Text(text = "${selectedUser.value?.email}",
                             fontSize = 18.sp,
+                            color = LightBlue,
                             modifier = Modifier.clickable {
-                                selectedUser.value?.email?.let {
-                                    email ->
+                                selectedUser.value?.email?.let { email ->
                                     viewModel.callGmail(
                                         email
                                     )
                                 }
-                            })
-                        Text(text ="birth.: " +  selectedUser.value?.birthday,
-                            fontSize = 18.sp)
-                        Text (text ="nationality: " + selectedUser.value?.nat,
-                            fontSize = 18.sp)
-
-                        Text(text ="Location", fontSize = 20.sp)
-                        Box(modifier = Modifier.clickable {
-                                selectedUser.value?.country?.let { country ->
-                                    selectedUser.value?.state?.let { state ->
-                                        selectedUser.value?.city?.let { city ->
-                                            selectedUser.value?.streetName?.let { street ->
-                                                selectedUser.value?.homeNumber?.let { home ->
-                                                    viewModel.callGmapsByAddress(
-                                                        "$country," +
-                                                                " $state," +
-                                                                " $city," +
-                                                                " $street, " +
-                                                                home
-                                                    )
-                                                }
-                                            }
+                            }
+                        )
+                    }
+                    Divider(
+                        color = Color.LightGray,
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(top = 5.dp)
+                    )
+                    Text(
+                        text = "Location",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 6.dp)
+                    )
+                    Box(modifier = Modifier.clickable {
+                        selectedUser.value?.country?.let { country ->
+                            selectedUser.value?.state?.let { state ->
+                                selectedUser.value?.city?.let { city ->
+                                    selectedUser.value?.streetName?.let { street ->
+                                        selectedUser.value?.homeNumber?.let { home ->
+                                            viewModel.callGmapsByAddress(
+                                                "$country," +
+                                                        " $state," +
+                                                        " $city," +
+                                                        " $street, " +
+                                                        home
+                                            )
                                         }
                                     }
                                 }
-                        }){
-                            Column {
-                                Text (text = "country: "+ selectedUser.value?.country,
-                                    fontSize = 18.sp)
-                                Text (text ="state: "+  selectedUser.value?.state,
-                                    fontSize = 18.sp)
-                                Text (text ="city: " + selectedUser.value?.city,
-                                    fontSize = 18.sp)
-                                Text(text ="address: " +
-                                        selectedUser.value?.streetName + ", "+
-                                        selectedUser.value?.homeNumber,
-                                    fontSize = 18.sp)
                             }
-
                         }
+                    }) {
+                        Column {
+                            Row {
+                                Text(
+                                    text = "country: ",
+                                    fontSize = 18.sp
+                                )
+                                Text(
+                                    text = "${selectedUser.value?.country}",
+                                    fontSize = 18.sp,
+                                    color = LightBlue
+                                )
+                            }
+                            Row {
+                                Text(
+                                    text = "state: ",
+                                    fontSize = 18.sp
+                                )
+                                Text(
+                                    text = "${selectedUser.value?.state}",
+                                    fontSize = 18.sp,
+                                    color = LightBlue
+                                )
+                            }
+                            Row {
+                                Text(
+                                    text = "city: ",
+                                    fontSize = 18.sp
+                                )
+                                Text(
+                                    text = "${selectedUser.value?.city}",
+                                    fontSize = 18.sp,
+                                    color = LightBlue
+                                )
 
-                        Text (text ="postcode: " + selectedUser.value?.postcode,
-                            fontSize = 18.sp)
-                        Text (text ="coordinate: " +
-                                selectedUser.value?.latitude +"; "+
-                            selectedUser.value?.longitude,
+                            }
+                            Row {
+                                Text(
+                                    text = "address: ",
+                                    fontSize = 18.sp
+                                )
+                                Text(
+                                    text = selectedUser.value?.streetName + ", " +
+                                            selectedUser.value?.homeNumber,
+                                    fontSize = 18.sp,
+                                    color = LightBlue
+                                )
+                            }
+                        }
+                    }
+
+
+                    Row {
+                        Text(
+                            text = "postcode: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.postcode}",
+                            fontSize = 18.sp
+                        )
+                    }
+
+                    Row {
+                        Text(
+                            text = "coordinate: ",
+                            fontSize = 18.sp
+                        )
+                        Text(text = selectedUser.value?.latitude + "; " +
+                                selectedUser.value?.longitude,
                             fontSize = 18.sp,
+                            color = LightBlue,
                             modifier = Modifier.clickable {
                                 selectedUser.value?.latitude?.let { latitude ->
                                     selectedUser.value?.longitude?.let { longitude ->
@@ -211,12 +361,134 @@ fun User(
                                         )
                                     }
                                 }
-                            })
-                        Text (text ="timezone: " +
-                                selectedUser.value?.timeZoneDescription +"; "+
-                                selectedUser.value?.timeZoneOffset,
-                            fontSize = 18.sp)
+                            }
+                        )
                     }
+
+                    Row {
+                        Text(
+                            text = "timezone: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = selectedUser.value?.timeZoneDescription + "; " +
+                                    selectedUser.value?.timeZoneOffset,
+                            fontSize = 18.sp
+                        )
+                    }
+                    Divider(
+                        color = Color.LightGray,
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(top = 5.dp)
+                    )
+                    Text(
+                        text = "Registration",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 6.dp)
+                    )
+                    Row {
+                        Text(
+                            text = "date: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.registered}",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "age: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.regAge}",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Divider(
+                        color = Color.LightGray,
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(top = 5.dp)
+                    )
+                    Text(
+                        text = "Private information",
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 6.dp)
+                    )
+
+                    Text(
+                        text = "uuid: ",
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        text = "${selectedUser.value?.uuid}",
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(bottom = 2.dp)
+                    )
+
+                    Row {
+                        Text(
+                            text = "username: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.username}",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "password: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.password}",
+                            fontSize = 18.sp
+                        )
+                    }
+                    Row {
+                        Text(
+                            text = "salt: ",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "${selectedUser.value?.salt}",
+                            fontSize = 18.sp
+                        )
+                    }
+
+                    Text(
+                        text = "md5: ",
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        text = "${selectedUser.value?.md5}",
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(bottom = 2.dp)
+                    )
+
+
+                    Text(
+                        text = "sha1: ",
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        text = "${selectedUser.value?.sha1}",
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(bottom = 2.dp)
+                    )
+
+
+                    Text(
+                        text = "sha256: ",
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        text = "${selectedUser.value?.sha256}",
+                        fontSize = 18.sp
+                    )
+
                 }
             }
         }
