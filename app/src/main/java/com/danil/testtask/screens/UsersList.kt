@@ -1,7 +1,6 @@
 package com.danil.testtask.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -52,9 +51,6 @@ fun UserList(
         }
     }
 
-
-
-    Log.d("bd", fullUsers.value.toString())
     val scaffoldState = rememberScaffoldState()
     Scaffold (
         scaffoldState = scaffoldState,
