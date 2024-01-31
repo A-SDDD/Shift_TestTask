@@ -43,7 +43,6 @@ fun UserList(
                 "Ошибка соединения",
                 Toast.LENGTH_LONG
             ).show()
-            Log.d("Ошибка valley","Нема интернет связи")
         } else if (viewModel.jsonErrorCheck.value){
             Toast.makeText(
                 AppContext.appContext,
@@ -79,7 +78,6 @@ fun UserList(
                                 "Ошибка соединения",
                                 Toast.LENGTH_LONG
                             ).show()
-                            Log.d("Ошибка valley","Нема интернет связи")
                             viewModel.valleyErrorCheck.value = false
                         }else if (viewModel.jsonErrorCheck.value){
                             Toast.makeText(
